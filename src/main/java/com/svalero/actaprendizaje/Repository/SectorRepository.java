@@ -1,5 +1,6 @@
 package com.svalero.actaprendizaje.Repository;
 
+
 import com.svalero.actaprendizaje.Domain.Sector;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -11,10 +12,7 @@ import java.util.List;
 public interface SectorRepository extends CrudRepository<Sector, Long> {
 
 
-    @Query(value = "SELECT c FROM sector c WHERE c.parque_id = (?1)", nativeQuery = true)
+    @Query(value = "SELECT * FROM sector WHERE parque_id = (?1)", nativeQuery = true)
     List<Sector> findSectores(long parque_id);
-
-    Sector findById(long idSec);
-  //  void deleteByIdSec(long idSec);
 
 }

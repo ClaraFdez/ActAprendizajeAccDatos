@@ -30,9 +30,9 @@ public class CimaServiceImp implements CimaService{
     @Override
     public Cima modifyCima(long id, Cima newCima) {
         Cima cima;
-        cima = cimaRepository.findByIdCima(id)
+        cima = cimaRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException());
-        newCima.setIdCima(id);
+        newCima.setId(id);
         return cimaRepository.save(newCima);
     }
 
@@ -44,7 +44,7 @@ public class CimaServiceImp implements CimaService{
     @Override
     public Cima modidfyCimaVivac(long id, int vivac) {
         Cima cima;
-        cima = cimaRepository.findByIdCima(id)
+        cima = cimaRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException());
         cima.setVivacs(vivac);
         return cimaRepository.save(cima);
@@ -53,7 +53,7 @@ public class CimaServiceImp implements CimaService{
     @Override
     public Cima findById(long id) {
         Cima cima;
-        cima = cimaRepository.findByIdCima(id)
+        cima = cimaRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException());
         return cima;
     }

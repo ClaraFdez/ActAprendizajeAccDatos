@@ -19,7 +19,7 @@ public class Cima {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private long idCima;
+    private long id;
 
     @Schema(description = "Nombre de la cima", example = "Monte Perdido", required = true)
     @Column

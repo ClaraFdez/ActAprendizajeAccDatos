@@ -1,10 +1,8 @@
 package com.svalero.actaprendizaje.Controller;
 
 import com.svalero.actaprendizaje.DTO.SectorDTO;
-import com.svalero.actaprendizaje.Domain.Parque;
 import com.svalero.actaprendizaje.Domain.Sector;
 import com.svalero.actaprendizaje.Service.SectorService;
-import com.svalero.actaprendizaje.Utils.NotFoundException;
 import com.svalero.actaprendizaje.Utils.Respuesta;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -19,10 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-import static com.svalero.actaprendizaje.Utils.Respuesta.NOT_FOUND;
+
 
 @Tag(name = "Sectores", description = "Listado de todos los sectores de un determinado Parque")
 @RestController
@@ -53,7 +50,7 @@ public class SectorController {
             @ApiResponse(responseCode = "200", description = "Se ha listado con éxito", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Sector.class)))),
     })
     @GetMapping(value = "/sector/id", produces = "application/json")
-    public ResponseEntity<List<Sector>> findAllSectores(@PathVariable long idParque){
+    public ResponseEntity<List<Sector>> findAllSectores(@RequestParam(name = "idParque") long idParque){
         logger.info("Inicio de findAllSectores");
         List<Sector> listaSectores;
         listaSectores = sectorService.findAll(idParque);
@@ -69,10 +66,10 @@ public class SectorController {
             @ApiResponse(responseCode = "404", description = "El sector no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
     @PutMapping(value = "/sector/{id}", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Sector> modifySec(@RequestBody Sector newSector, @PathVariable long id){
+    public ResponseEntity<Sector> modifySec(@RequestBody SectorDTO sectorDTO, @PathVariable long id){
         logger.info("Inicio de modifySec");
         Sector sector;
-        sector = sectorService.modifySector(id, newSector);
+        sector = sectorService.modifySector(id, sectorDTO);
         logger.info("Fin de modifySec");
         return new ResponseEntity<>(sector, HttpStatus.CREATED);
     }
@@ -100,11 +97,11 @@ public class SectorController {
             @ApiResponse(responseCode = "200", description = "Modificado con éxito", content = @Content(schema = @Schema(implementation = Sector.class))),
             @ApiResponse(responseCode = "404", description = "El sector no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
-    @PatchMapping(value = "/sector/{id}/bus/", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Sector> modifyAccSector(@PathVariable long id, @RequestParam(name = "bus") boolean bus){
+    @PatchMapping(value = "/sector/{id}/numrutas/", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<Sector> modifyAccSector(@PathVariable long id, @RequestParam(name = "numrutas") int numRutas){
         logger.info("Inicio de modifyAccSector");
         Sector sector;
-        sector = sectorService.modifyAcceso(id, bus);
+        sector = sectorService.modifyRutas(id, numRutas);
         logger.info("Fin de modifyAccSector");
         return new ResponseEntity<>(sector, HttpStatus.CREATED);
     }

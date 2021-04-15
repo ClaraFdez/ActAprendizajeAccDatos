@@ -12,8 +12,8 @@ public interface SectorService {
     Sector addSector(SectorDTO sectorDTO); //añadir un sector
 
     List<Sector> findAll(long parque_id); //todos los sectores
-    Sector modifySector(long id, Sector nuevoSector); //modificar un sector
+    Sector modifySector(long id, SectorDTO sectorDTO); //modificar un sector
     void deleteSector(long id); //eliminar un sector
-    Sector modifyAcceso(long id, boolean b);//modificar un parametro de un sector
+    Sector modifyRutas(long id, int numRutas);//modificar un parametro de un sector
     Sector findById(long id);
 }

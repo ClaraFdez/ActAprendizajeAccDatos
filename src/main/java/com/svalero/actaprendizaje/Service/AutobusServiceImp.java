@@ -42,7 +42,7 @@ public class AutobusServiceImp implements AutobusService{
         Autobus bus;
         bus = autobusRepository.findById(idBus)
                 .orElseThrow(()-> new NotFoundException());
-        newBus.setIdBus(idBus);
+        newBus.setId(idBus);
         return autobusRepository.save(newBus);
     }
 
@@ -55,18 +55,18 @@ public class AutobusServiceImp implements AutobusService{
     }
 
     @Override
-    public Autobus modifyBusPrecio(long idBus, float precio) {
+    public Autobus modifyBusPrecio(long id, float precio) {
         Autobus bus;
-        bus = autobusRepository.findById(idBus)
+        bus = autobusRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException());
         bus.setPrecio(precio);
         return autobusRepository.save(bus);
     }
 
     @Override
-    public Autobus findById(long idBus) {
+    public Autobus findById(long id) {
         Autobus bus;
-        bus = autobusRepository.findById(idBus)
+        bus = autobusRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException());
         return bus;
     }

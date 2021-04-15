@@ -21,7 +21,7 @@ public class Autobus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private long idBus;
+    private long id;
 
     @Schema(description = "Punto de salida del autobus", example = "Torla", required = true)
     @Column

@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface CimaRepository extends CrudRepository<Cima, Long> {
 
     List<Cima> findAll();
-    Optional<Cima> findByIdCima(long idCima);
+   // Optional<Cima> findByIdCima(long idCima);
 
 }

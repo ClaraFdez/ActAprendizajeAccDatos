@@ -1,15 +1,14 @@
 package com.svalero.actaprendizaje.Domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.List;
 
 
 @Data
@@ -49,7 +48,8 @@ public class Sector {
 
 
     @Schema(description = "Identificador del parque donde se encuentra un sector")
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
+    @JsonBackReference
     @JoinColumn (name = "parque_id", nullable = false)
     private Parque parque;
 

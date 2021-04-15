@@ -47,7 +47,7 @@ public class RutaServiceImp implements RutaService{
         Ruta ruta;
         ruta = rutaRepository.findById(idRuta)
                 .orElseThrow(()-> new NotFoundException());
-        newRuta.setIdRuta(idRuta);
+        newRuta.setId(idRuta);
         return rutaRepository.save(newRuta);
     }
 

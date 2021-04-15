@@ -1,5 +1,6 @@
 package com.svalero.actaprendizaje.Domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
-
+import java.util.List;
 
 
 @Data
@@ -50,7 +51,8 @@ public class Parque {
 
 
 
-   // @OneToMany(mappedBy = "parque")
-   // private List<Sector> Listasectores;
+    @OneToMany(mappedBy = "parque", cascade = CascadeType.REMOVE)
+   // @JsonBackReference
+    private List<Sector> Listasectores;
 
 }

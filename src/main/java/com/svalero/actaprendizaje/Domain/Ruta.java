@@ -22,7 +22,7 @@ public class Ruta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private long idRuta;
+    private long id;
 
     @Schema(description = "Nombre de la ruta", example = "Monte Perdido desde el Refugio de Goriz", required = true)
     @Column
