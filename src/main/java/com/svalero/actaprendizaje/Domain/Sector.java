@@ -22,7 +22,7 @@ public class Sector {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idSec;
+    private long id;
 
     @Schema(description = "Nombre del sector", example = "Ordesa", required = true)
     @Column
@@ -48,18 +48,11 @@ public class Sector {
 
 
 
-
-    //@Schema(description = "Lista de rutas de un sector en concreto", example = "Cola de caballo, Faja Racum, Faja de las Flores, Senda de los cazadores, Turieto Alto")
-    //@OneToMany(mappedBy = "sector")
-    //private List<Ruta> Listarutas;
-
     @Schema(description = "Identificador del parque donde se encuentra un sector")
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn (name = "parque_id", nullable = false)
     private Parque parque;
 
-   // @Schema(description = "Listado de autobuses que te acercan al inicio de las rutas en un sector", example = "Torla-pradera de Ordesa, Torla-miradores")
-   // @OneToMany(mappedBy = "sector")
-    //private List<Autobus> ListaAutobuses;
+
 
 }

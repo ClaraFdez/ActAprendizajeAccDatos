@@ -12,8 +12,9 @@ public interface SectorRepository extends CrudRepository<Sector, Long> {
 
 
     @Query(value = "SELECT c FROM sector c WHERE c.parque_id = (?1)", nativeQuery = true)
-    List<Sector> findAll(long parque_id);
+    List<Sector> findSectores(long parque_id);
 
     Sector findById(long idSec);
+  //  void deleteByIdSec(long idSec);
 
 }

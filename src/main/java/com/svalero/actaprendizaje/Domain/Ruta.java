@@ -71,15 +71,15 @@ public class Ruta {
     @JoinColumn(name = "sector_id", nullable = false)
     private Sector sector;
 
-    @ManyToMany
+   /* @ManyToMany
     @JoinTable(name = "ruta_cima",
         joinColumns = {
             @JoinColumn(name = "ruta_id")},
         inverseJoinColumns = {
             @JoinColumn(name = "cima_id")})
-    private List<Cima> listaCimas;
+    private List<Cima> listaCimas;*/
 
-    /*@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cima_id", nullable = false)
-    private Cima cima;*/
+    private Cima cima;
 }

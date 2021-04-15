@@ -1,5 +1,6 @@
 package com.svalero.actaprendizaje.Controller;
 
+import com.svalero.actaprendizaje.DTO.SectorDTO;
 import com.svalero.actaprendizaje.Domain.Parque;
 import com.svalero.actaprendizaje.Domain.Sector;
 import com.svalero.actaprendizaje.Service.SectorService;
@@ -38,9 +39,9 @@ public class SectorController {
             @ApiResponse(responseCode = "201", description = "Sector añadido con exito", content = @Content(schema = @Schema(implementation = Sector.class))),
     })
     @PostMapping(value = "/sector", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Sector> addSector(@RequestBody Sector sector){
+    public ResponseEntity<Sector> addSector(@RequestBody SectorDTO sectorDTO){
         logger.info("Inicio de addSector");
-        Sector sectoradd = sectorService.addSector(sector);
+        Sector sectoradd = sectorService.addSector(sectorDTO);
         logger.info("Fin de addSector");
         return new ResponseEntity<>(sectoradd, HttpStatus.CREATED);
     }
@@ -51,7 +52,7 @@ public class SectorController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Se ha listado con éxito", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Sector.class)))),
     })
-    @GetMapping(value = "/sector", produces = "application/json")
+    @GetMapping(value = "/sector/id", produces = "application/json")
     public ResponseEntity<List<Sector>> findAllSectores(@PathVariable long idParque){
         logger.info("Inicio de findAllSectores");
         List<Sector> listaSectores;
@@ -64,14 +65,14 @@ public class SectorController {
 
     @Operation(summary = "Modificar un sector al completo")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Sector modificado con éxito", content = @Content(schema = @Schema(implementation = Sector.class))),
+            @ApiResponse(responseCode = "200", description = "Sector modificado con éxito", content = @Content(schema = @Schema(implementation = Sector.class))),
             @ApiResponse(responseCode = "404", description = "El sector no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
     @PutMapping(value = "/sector/{id}", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Sector> modifySec(@RequestBody Sector newSector, @PathVariable long idSec){
+    public ResponseEntity<Sector> modifySec(@RequestBody Sector newSector, @PathVariable long id){
         logger.info("Inicio de modifySec");
         Sector sector;
-        sector = sectorService.modifySector(idSec, newSector);
+        sector = sectorService.modifySector(id, newSector);
         logger.info("Fin de modifySec");
         return new ResponseEntity<>(sector, HttpStatus.CREATED);
     }
@@ -84,9 +85,9 @@ public class SectorController {
             @ApiResponse(responseCode = "404", description = "El sector no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
     @DeleteMapping(value = "/sector/{id}", produces = "application/json")
-    public ResponseEntity<Respuesta> deleteSector(@PathVariable long idSec){
+    public ResponseEntity<Respuesta> deleteSector(@PathVariable long id){
         logger.info("Inicio de deleteSector");
-        sectorService.deleteSector(idSec);
+        sectorService.deleteSector(id);
         logger.info("Fin de deleteSector");
         return new ResponseEntity<>(Respuesta.noErrorResponse(), HttpStatus.OK);
     }
@@ -96,13 +97,14 @@ public class SectorController {
 
     @Operation(summary = "Modificación del acceso al sector")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Modificado con éxito", content = @Content(schema = @Schema(implementation = Sector.class))),
+            @ApiResponse(responseCode = "200", description = "Modificado con éxito", content = @Content(schema = @Schema(implementation = Sector.class))),
+            @ApiResponse(responseCode = "404", description = "El sector no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
-    @PutMapping(value = "/sector/bus/{id}", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Sector> modifyAccSector(@PathVariable long idSec, @RequestParam(name = "bus") boolean bus){
+    @PatchMapping(value = "/sector/{id}/bus/", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<Sector> modifyAccSector(@PathVariable long id, @RequestParam(name = "bus") boolean bus){
         logger.info("Inicio de modifyAccSector");
         Sector sector;
-        sector = sectorService.modifyAcceso(idSec, bus);
+        sector = sectorService.modifyAcceso(id, bus);
         logger.info("Fin de modifyAccSector");
         return new ResponseEntity<>(sector, HttpStatus.CREATED);
     }
@@ -111,26 +113,16 @@ public class SectorController {
 
     @Operation(summary = "Buscar un sector por su identificador")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Sector encontrado", content = @Content(schema = @Schema (implementation = Sector.class))),
-            @ApiResponse(responseCode = "404", description = "Sector no existes", content = @Content(schema = @Schema(implementation = Respuesta.class)))
+            @ApiResponse(responseCode = "200", description = "Sector encontrado", content = @Content(schema = @Schema (implementation = Sector.class)))
     })
     @GetMapping(value = "/sector/{id}", produces = "application/json")
-    public ResponseEntity<Sector> findById(@PathVariable long idSec){
+    public ResponseEntity<Sector> findById(@PathVariable long id){
         logger.info("Inicio findById");
         Sector sector;
-        sector = sectorService.findById(idSec);
+        sector = sectorService.findById(id);
         logger.info(("Fin de findById"));
         return new ResponseEntity<>(sector, HttpStatus.OK);
     }
 
 
-
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Respuesta> handleException(NotFoundException pnfe) {
-        Respuesta respuesta = Respuesta.errorResonse(NOT_FOUND, pnfe.getMessage());
-        logger.error(pnfe.getMessage(), pnfe);
-        return new ResponseEntity<>(respuesta, HttpStatus.NOT_FOUND);
-    }
 }

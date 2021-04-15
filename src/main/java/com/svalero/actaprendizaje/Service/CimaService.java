@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface CimaService {
 
-    Cima addCima(Cima cima); //añade una cima
-    List<Cima> findAll(); //lista todas las cimas
-    Cima modifyCima(long id, Cima newCima); //modifica la cima entera
-    void deleteCima(long id); // borra una cima
+    Cima addCima(Cima cima);
+    List<Cima> findAll();
+    Cima modifyCima(long id, Cima newCima);
+    void deleteCima(long id);
     Cima modidfyCimaVivac(long id, int vivac);
     Cima findById(long id);
 
