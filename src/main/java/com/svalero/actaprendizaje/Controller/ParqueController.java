@@ -32,14 +32,18 @@ public class ParqueController {
     @Autowired
     private ParqueService parqueService;
 
-    @Operation(summary = "Lista todos los Parques")
+    @Operation(summary = "Lista todos los Parques/ por secuencia de caracteres")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Listado de Parques", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Parque.class))))})
-    @GetMapping(value = "/parque", produces = "application/json")
-    public ResponseEntity<Set<Parque>> findAll(){
+    @GetMapping(value = "/parques", produces = "application/json")
+    public ResponseEntity<List<Parque>> findAll(@RequestParam(name = "sec", defaultValue = "") String sec){
         logger.info("Inicio findAll en Parques");
-        Set<Parque> parques = null;
-        parques = parqueService.findAll();
+        List<Parque> parques = null;
+        if(sec.equals("")) {
+            parques = parqueService.findAll();
+        }else{
+            parques = parqueService.findByNombreParqueContaining(sec);
+        }
         logger.info(("Fin de findAll en Parques"));
         return new ResponseEntity<>(parques, HttpStatus.OK);
     }
@@ -78,8 +82,7 @@ public class ParqueController {
 
     @Operation(summary = "Buscar un Paque por su facilidad de acceso")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Parques encontrados", content = @Content(schema = @Schema(implementation = Parque.class))),
-            @ApiResponse(responseCode = "400", description = "El parque no existe", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Respuesta.class))))
+            @ApiResponse(responseCode = "200", description = "Parques encontrados", content = @Content(schema = @Schema(implementation = Parque.class)))
     })
     @GetMapping(value = "/parque/acceso", produces = "application/json")
     public ResponseEntity<List<Parque>> findByAcceso(@RequestParam(name = "acceso") boolean b){
@@ -134,30 +137,13 @@ public class ParqueController {
         return new  ResponseEntity<>(newParque, HttpStatus.CREATED);
     }
 
-    /*
-    @Operation(summary = "Modificar solo la extensión de un Parque")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Se ha modificado con exito", content = @Content(schema = @Schema(implementation = Parque.class))),
-            @ApiResponse(responseCode = "404", description = "El parque no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
-    })
-    @PutMapping(value = "/parque/extension/{id}/", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Parque> modifyExtension(@RequestParam(name = "extension") float extension, @PathVariable long id){
-        logger.info("Inicio modifyExtension en Parques");
-        Parque parque = null;
-        parque = parqueService.modifyExtension(extension, id);
-        logger.info(("Fin de modifyExtension en Parques"));
-        return new ResponseEntity<>(parque, HttpStatus.CREATED);
-    }
-    */
-
-    //COMPROBAR
 
     @Operation(summary = "Modificar solo la extensión de un Parque")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Se ha modificado con exito", content = @Content(schema = @Schema(implementation = Parque.class))),
+            @ApiResponse(responseCode = "200", description = "Se ha modificado con exito", content = @Content(schema = @Schema(implementation = Parque.class))),
             @ApiResponse(responseCode = "404", description = "El parque no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
-    @PatchMapping(value = "/parque/extension/{id}", produces = "application/json", consumes = "application/json")
+    @PatchMapping(value = "/parque/{id}/extension", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Parque> modifyExtension( @PathVariable long id, @RequestParam(name = "extension") float extension){
         logger.info("Inicio modifyExtension en Parques");
         Parque parque = parqueService.modifyExtension(extension, id);

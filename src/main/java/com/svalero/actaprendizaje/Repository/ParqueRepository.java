@@ -11,10 +11,11 @@ import java.util.Set;
 @Repository
 public interface ParqueRepository extends CrudRepository<Parque, Long> {
 
-    Set<Parque> findAll();
+    List<Parque> findAll();
     Parque findByNombreParque(String nombreParque);
     List<Parque> findByAcceso(Boolean b);
     Optional<Parque> findById(long id);
+    List<Parque> findByNombreParqueContaining(String sec);
 
 
 

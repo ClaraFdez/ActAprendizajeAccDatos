@@ -68,8 +68,15 @@ public class ParqueServiceImp implements ParqueService{
 
 
     @Override
-    public Set<Parque> findAll() {
+    public List<Parque> findAll() {
         return parqueRepository.findAll();
+    }
+
+    @Override
+    public List<Parque> findByNombreParqueContaining(String sec) {
+        List<Parque> listaParque;
+        listaParque = parqueRepository.findByNombreParqueContaining(sec);
+        return listaParque;
     }
 
 }

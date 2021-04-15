@@ -15,6 +15,7 @@ public interface ParqueService {
     Parque addParque(Parque parque);
     Parque modifyParque (long id, Parque parque);
     Parque modifyExtension (float extension, long id);
-    Set<Parque> findAll();
+    List<Parque> findAll();
+    List<Parque> findByNombreParqueContaining(String sec);
 
 }
