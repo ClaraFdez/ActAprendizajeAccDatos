@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Data
@@ -53,6 +54,10 @@ public class Sector {
     @JoinColumn (name = "parque_id", nullable = false)
     private Parque parque;
 
+
+    @OneToMany(mappedBy = "sector", cascade = CascadeType.REMOVE)
+    @JsonBackReference
+    private List<Autobus> listaBus;
 
 
 }

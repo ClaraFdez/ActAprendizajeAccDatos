@@ -1,5 +1,6 @@
 package com.svalero.actaprendizaje.Domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -52,7 +53,8 @@ public class Autobus {
 
 
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
+    //@JsonBackReference
     @JoinColumn(name = "sector_id")
     private Sector sector;
 }

@@ -98,7 +98,7 @@ public class SectorController {
             @ApiResponse(responseCode = "404", description = "El sector no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
     @PatchMapping(value = "/sector/{id}/numrutas/", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Sector> modifyAccSector(@PathVariable long id, @RequestParam(name = "numrutas") int numRutas){
+    public ResponseEntity<Sector> modifyNumRutas(@PathVariable long id, @RequestParam(name = "numrutas") int numRutas){
         logger.info("Inicio de modifyAccSector");
         Sector sector;
         sector = sectorService.modifyRutas(id, numRutas);
