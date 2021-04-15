@@ -17,11 +17,6 @@ public class ParqueServiceImp implements ParqueService{
     private ParqueRepository parqueRepository;
 
 
-    @Override
-    public Parque findByNombreParque(String nombre) {
-        return parqueRepository.findByNombreParque(nombre);
-    }
-
 
     @Override
     public List<Parque> findByAcceso(Boolean b) {

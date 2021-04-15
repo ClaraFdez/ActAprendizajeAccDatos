@@ -17,11 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.List;
-import java.util.Set;
 
-import static com.svalero.actaprendizaje.Utils.Respuesta.NOT_FOUND;
 
 @RestController
 @Tag(name = "Parques", description = "Listado de Parques Naturales o Nacionales de España")
@@ -64,20 +61,6 @@ public class ParqueController {
         return new ResponseEntity<>(parque, HttpStatus.OK);
     }
 
-
-    @Operation(summary = "Busca un Parque por su nombre")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Parque encontrado", content = @Content(schema = @Schema(implementation = Parque.class))),
-            @ApiResponse(responseCode = "404", description = "El parque no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
-    })
-    @GetMapping(value = "/parque/nombre", produces = "application/json")
-    public ResponseEntity<Parque> findByNombre(@RequestParam(name = "nombreParque") String nombre){
-        logger.info("Inicio findByNombre en Parques");
-        Parque parque = null;
-        parque = parqueService.findByNombreParque(nombre);
-        logger.info(("Fin de findByNombre en Parques"));
-        return new ResponseEntity<>(parque, HttpStatus.OK);
-    }
 
 
     @Operation(summary = "Buscar un Paque por su facilidad de acceso")
@@ -125,7 +108,7 @@ public class ParqueController {
 
     @Operation(summary = "Modificar un Parque completo")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Se ha modificado con exito", content = @Content(schema = @Schema(implementation = Parque.class))),
+            @ApiResponse(responseCode = "200", description = "Se ha modificado con exito", content = @Content(schema = @Schema(implementation = Parque.class))),
             @ApiResponse(responseCode = "404", description = "El parque no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
     @PutMapping(value = "/parque/{id}", produces = "application/json", consumes = "application/json")
@@ -151,14 +134,6 @@ public class ParqueController {
         return new ResponseEntity<>(parque, HttpStatus.CREATED);
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Respuesta> handleException(NotFoundException pnfe) {
-        Respuesta respuesta = Respuesta.errorResonse(NOT_FOUND, pnfe.getMessage());
-        logger.error(pnfe.getMessage(), pnfe);
-        return new ResponseEntity<>(respuesta, HttpStatus.NOT_FOUND);
-    }
 
 
 }

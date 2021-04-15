@@ -2,7 +2,6 @@ package com.svalero.actaprendizaje.Controller;
 
 import com.svalero.actaprendizaje.Domain.Cima;
 import com.svalero.actaprendizaje.Service.CimaService;
-import com.svalero.actaprendizaje.Utils.NotFoundException;
 import com.svalero.actaprendizaje.Utils.Respuesta;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -14,15 +13,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
-import static com.svalero.actaprendizaje.Utils.Respuesta.NOT_FOUND;
 import static com.svalero.actaprendizaje.Utils.Respuesta.noErrorResponse;
+
 
 @Tag(name = "Cima", description = "Descripción de las Cimas")
 @RestController
@@ -39,7 +35,7 @@ public class CimaController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Añadido con éxito", content = @Content(schema = @Schema(implementation = Cima.class))),
     })
-    @PostMapping(value = "/cima", produces = "application/json")
+    @PostMapping(value = "/cima", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Cima> addCima(@RequestBody Cima cima){
         logger.info("Inicio de addCima");
         Cima cimaadd = cimaService.addCima(cima);
@@ -54,7 +50,7 @@ public class CimaController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Listado con éxito", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Cima.class)))),
     })
-    @GetMapping(value = "/cima", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/cimas", produces = "application/json")
     public ResponseEntity<List<Cima>> findAll(){
         logger.info("Inicio de findAll");
         List<Cima> listaCimas;
@@ -67,7 +63,7 @@ public class CimaController {
 
     @Operation(summary = "Modificación de una cima")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Modificado con éxito", content = @Content(schema = @Schema(implementation = Cima.class))),
+            @ApiResponse(responseCode = "200", description = "Modificado con éxito", content = @Content(schema = @Schema(implementation = Cima.class))),
             @ApiResponse(responseCode = "404", description = "La cima no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
     @PutMapping(value = "/cima/{id}", produces = "application/json", consumes = "application/json")
@@ -98,11 +94,11 @@ public class CimaController {
 
     @Operation(summary = "Modificación del campo vivac de una cima")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Modificado con éxito", content = @Content(schema = @Schema(implementation = Cima.class))),
+            @ApiResponse(responseCode = "200", description = "Modificado con éxito", content = @Content(schema = @Schema(implementation = Cima.class))),
             @ApiResponse(responseCode = "404", description = "La cima no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
-    @PatchMapping(value = "/cima", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Cima> modifyCimaVivac(@PathVariable long id, @RequestParam(name = "vivacs") int vivac){
+    @PatchMapping(value = "/cima/{id}/vivac", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<Cima> modifyCimaVivac(@PathVariable long id, @RequestParam(name = "vivac") int vivac){
         logger.info("Inicio de modifyCimaVivac");
         Cima cima;
         cima = cimaService.modidfyCimaVivac(id, vivac);
@@ -116,7 +112,7 @@ public class CimaController {
             @ApiResponse(responseCode = "200", description = "Busqueda realizada", content = @Content(schema = @Schema(implementation = Cima.class))),
             @ApiResponse(responseCode = "404", description = "No existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
-    @GetMapping(value = "/cima/{id}", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/cima/{id}", produces = "application/json")
     public ResponseEntity<Cima> findById(@PathVariable long id){
         logger.info("Inicio de findById");
         Cima cima;
@@ -125,14 +121,5 @@ public class CimaController {
         return new ResponseEntity<>(cima, HttpStatus.OK);
     }
 
-
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Respuesta> handleException(NotFoundException pnfe) {
-        Respuesta respuesta = Respuesta.errorResonse(NOT_FOUND, pnfe.getMessage());
-        logger.error(pnfe.getMessage(), pnfe);
-        return new ResponseEntity<>(respuesta, HttpStatus.NOT_FOUND);
-    }
 
 }

@@ -8,7 +8,6 @@ import java.util.Set;
 
 public interface ParqueService {
 
-    Parque findByNombreParque(String nombre);
     List<Parque> findByAcceso(Boolean b);
     Optional<Parque> findById(long id);
     void delete(long id);

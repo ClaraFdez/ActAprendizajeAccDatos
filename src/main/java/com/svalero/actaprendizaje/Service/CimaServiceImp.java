@@ -33,7 +33,7 @@ public class CimaServiceImp implements CimaService{
         cima = cimaRepository.findByIdCima(id)
                 .orElseThrow(()-> new NotFoundException());
         newCima.setIdCima(id);
-        return newCima;
+        return cimaRepository.save(newCima);
     }
 
     @Override

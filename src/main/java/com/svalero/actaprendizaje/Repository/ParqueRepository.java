@@ -12,7 +12,6 @@ import java.util.Set;
 public interface ParqueRepository extends CrudRepository<Parque, Long> {
 
     List<Parque> findAll();
-    Parque findByNombreParque(String nombreParque);
     List<Parque> findByAcceso(Boolean b);
     Optional<Parque> findById(long id);
     List<Parque> findByNombreParqueContaining(String sec);
