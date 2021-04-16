@@ -67,7 +67,7 @@ public class Ruta {
 
 
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "sector_id", nullable = false)
     private Sector sector;
 

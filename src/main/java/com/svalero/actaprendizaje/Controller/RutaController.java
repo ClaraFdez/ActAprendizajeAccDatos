@@ -1,9 +1,9 @@
 package com.svalero.actaprendizaje.Controller;
 
 
+import com.svalero.actaprendizaje.DTO.RutaDTO;
 import com.svalero.actaprendizaje.Domain.Ruta;
 import com.svalero.actaprendizaje.Service.RutaService;
-import com.svalero.actaprendizaje.Utils.NotFoundException;
 import com.svalero.actaprendizaje.Utils.Respuesta;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -18,10 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-import static com.svalero.actaprendizaje.Utils.Respuesta.NOT_FOUND;
+
 
 @Tag(name = "Rutas", description = "Descripción de las Rutas")
 @RestController
@@ -39,9 +38,9 @@ public class RutaController {
             @ApiResponse(responseCode = "201", description = "Insertado con éxito", content = @Content(schema = @Schema(implementation = Ruta.class))),
     })
     @PostMapping(value = "/ruta", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Ruta> addRuta(@RequestBody Ruta ruta){
+    public ResponseEntity<Ruta> addRuta(@RequestBody RutaDTO rutaDTO){
         logger.info("Inicio de addRuta");
-        Ruta rutaadd = rutaService.addRuta(ruta);
+        Ruta rutaadd = rutaService.addRuta(rutaDTO);
         logger.info("Fin de addRuta");
         return new ResponseEntity<>(rutaadd, HttpStatus.CREATED);
     }
@@ -67,11 +66,10 @@ public class RutaController {
 
     @Operation(summary = "Lista de las rutas de un determinado sector")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Busqueda realizada con exito", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Ruta.class)))),
-            @ApiResponse(responseCode = "404", description = "La ruta no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
+            @ApiResponse(responseCode = "200", description = "Busqueda realizada con exito", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Ruta.class))))
     })
     @GetMapping(value = "/ruta/sector", produces = "application/json")
-    public ResponseEntity<List<Ruta>> findAllSec(@PathVariable long sector_id){
+    public ResponseEntity<List<Ruta>> findAllSec(@RequestParam(name = "sector_id") long sector_id){
         logger.info("Inicio de findAllSec");
         List<Ruta> listaRutas;
         listaRutas = rutaService.findAllIdSec(sector_id);
@@ -88,10 +86,10 @@ public class RutaController {
             @ApiResponse(responseCode = "404", description = "La ruta no existea", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
     @GetMapping(value = "/ruta/{id}", produces = "application/json")
-    public ResponseEntity<Ruta> findById(@PathVariable long idRuta){
+    public ResponseEntity<Ruta> findById(@PathVariable long id){
         logger.info("Inicio de findById");
         Ruta ruta;
-        ruta = rutaService.findById(idRuta);
+        ruta = rutaService.findById(id);
         logger.info("Fin de findById");
         return new ResponseEntity<>(ruta, HttpStatus.OK);
 
@@ -103,14 +101,14 @@ public class RutaController {
 
     @Operation(summary = "Modificación de una ruta completa")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Modificación realizada", content = @Content(schema = @Schema(implementation = Ruta.class))),
+            @ApiResponse(responseCode = "200", description = "Modificación realizada", content = @Content(schema = @Schema(implementation = Ruta.class))),
             @ApiResponse(responseCode = "404", description = "La ruta no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
     @PutMapping(value = "/ruta/{id}", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Ruta> modifyRuta(@PathVariable long idRuta, @RequestBody Ruta newRuta){
+    public ResponseEntity<Ruta> modifyRuta(@PathVariable long id, @RequestBody RutaDTO rutaDTO){
         logger.info("Inicio de modifyRuta");
         Ruta ruta;
-        ruta = rutaService.modifyRuta(idRuta, newRuta);
+        ruta = rutaService.modifyRuta(id, rutaDTO);
         logger.info("Fin de modifyRuta");
         return new ResponseEntity<>(ruta, HttpStatus.CREATED);
     }
@@ -124,9 +122,9 @@ public class RutaController {
             @ApiResponse(responseCode = "404", description = "La ruta no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
     @DeleteMapping(value = "/ruta/{id}", produces = "application/json")
-    public ResponseEntity<Respuesta> deleteRuta(@PathVariable long idRuta){
+    public ResponseEntity<Respuesta> deleteRuta(@PathVariable long id){
         logger.info("Inicio de deleteRuta");
-        rutaService.deleteRuta(idRuta);
+        rutaService.deleteRuta(id);
         logger.info("Fin de deleteRuta");
         return new ResponseEntity<>(Respuesta.noErrorResponse(), HttpStatus.OK);
     }
@@ -139,11 +137,11 @@ public class RutaController {
             @ApiResponse(responseCode = "201", description = "Modificación realizada", content = @Content(schema = @Schema(implementation = Ruta.class))),
             @ApiResponse(responseCode = "404", description = "La ruta no existe", content = @Content(schema = @Schema(implementation = Respuesta.class)))
     })
-    @PatchMapping(value = "/ruta", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Ruta> modifyRutaMaterial(@PathVariable long idRuta, @RequestParam(name = "material") String material){
+    @PatchMapping(value = "/ruta/{id}/material", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<Ruta> modifyRutaMaterial(@PathVariable long id, @RequestParam(name = "material") String material){
         logger.info("Inicio de modifyRutaMaterial");
         Ruta ruta;
-        ruta = rutaService.modifyRutaMaterial(idRuta, material);
+        ruta = rutaService.modifyRutaMaterial(id, material);
         logger.info("Fin de modifyRutaMaterial");
         return new ResponseEntity<>(ruta, HttpStatus.CREATED);
     }
@@ -166,15 +164,4 @@ public class RutaController {
         return new ResponseEntity<>(listaRutas, HttpStatus.OK);
     }
 
-
-
-
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Respuesta> handleException(NotFoundException pnfe) {
-        Respuesta respuesta = Respuesta.errorResonse(NOT_FOUND, pnfe.getMessage());
-        logger.error(pnfe.getMessage(), pnfe);
-        return new ResponseEntity<>(respuesta, HttpStatus.NOT_FOUND);
-    }
 }

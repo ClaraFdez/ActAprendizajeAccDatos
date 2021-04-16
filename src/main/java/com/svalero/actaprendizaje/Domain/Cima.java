@@ -39,6 +39,10 @@ public class Cima {
     private int vivacs;
 
 
+
+    @OneToMany(mappedBy = "cima", cascade = CascadeType.REMOVE)
+    private List<Ruta> listaRutas;
+
 /*
     @Schema(description = "Listado de rutas que hacen una cima en concreto", example = "Monte Perdido desde Goriz (normal), Monte Perdido desde Goriz (escaleras), Monte Perdido desde el Balcon de Pineta")
     @ManyToMany(mappedBy = "cima")

@@ -60,4 +60,8 @@ public class Sector {
     private List<Autobus> listaBus;
 
 
+    @OneToMany(mappedBy = "sector", cascade = CascadeType.REMOVE)
+    private List<Ruta> listaRutas;
+
+
 }
