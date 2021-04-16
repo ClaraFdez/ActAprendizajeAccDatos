@@ -79,7 +79,8 @@ public class Ruta {
             @JoinColumn(name = "cima_id")})
     private List<Cima> listaCimas;*/
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
+    //@ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "cima_id", nullable = false)
     private Cima cima;
 }

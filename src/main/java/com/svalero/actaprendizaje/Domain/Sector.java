@@ -61,6 +61,7 @@ public class Sector {
 
 
     @OneToMany(mappedBy = "sector", cascade = CascadeType.REMOVE)
+    @JsonBackReference
     private List<Ruta> listaRutas;
 
 
