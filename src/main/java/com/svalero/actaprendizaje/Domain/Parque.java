@@ -1,6 +1,6 @@
 package com.svalero.actaprendizaje.Domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -52,7 +52,6 @@ public class Parque {
 
 
     @OneToMany(mappedBy = "parque", cascade = CascadeType.REMOVE)
-   // @JsonBackReference
     private List<Sector> Listasectores;
 
 }

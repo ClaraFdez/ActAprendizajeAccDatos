@@ -45,7 +45,6 @@ public class CimaController {
 
 
 
-
     @Operation(summary = "Lista todas las cimas")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Listado con éxito", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Cima.class)))),

@@ -21,6 +21,7 @@ public class RutaDTO {
     private String epoca;
     private int dificultad;
     private String material;
+
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fecha;
 

@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 public interface AutobusRepository extends CrudRepository<Autobus, Long> {
 
-
     @Query(value = "SELECT * FROM autobus  WHERE sector_id = (?1)", nativeQuery = true)
     List<Autobus> findBusSec(long sector_id);
 

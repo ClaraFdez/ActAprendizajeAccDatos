@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface SectorRepository extends CrudRepository<Sector, Long> {
 
-
     @Query(value = "SELECT * FROM sector WHERE parque_id = (?1)", nativeQuery = true)
     List<Sector> findSectores(long parque_id);
 

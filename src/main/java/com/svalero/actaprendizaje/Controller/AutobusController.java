@@ -31,6 +31,7 @@ public class AutobusController {
     private AutobusService autobusService;
 
 
+
     @Operation(summary = "Buscar todos los autobuses de un sector")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Listado con éxito", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Autobus.class)))),
@@ -43,6 +44,7 @@ public class AutobusController {
         logger.info("Fin de findAllBusSec");
         return new ResponseEntity<>(listaBus, HttpStatus.OK);
     }
+
 
 
     @Operation(summary = "Añadir un Autobus")
@@ -58,6 +60,7 @@ public class AutobusController {
     }
 
 
+
     @Operation(summary = "Modificar un autobus al completo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Modificado con exito", content = @Content(schema = @Schema(implementation = Autobus.class))),
@@ -71,6 +74,7 @@ public class AutobusController {
         logger.info("Fin de modifyBus");
         return new ResponseEntity<>(bus, HttpStatus.CREATED);
     }
+
 
 
     @Operation(summary = "Eliminar un Autobus")
@@ -101,6 +105,8 @@ public class AutobusController {
         logger.info("Fin modifyBusPrecio");
         return new ResponseEntity<>(bus, HttpStatus.CREATED);
     }
+
+
 
     @Operation(summary = "Buscar un autobus por su identificador")
     @ApiResponses(value = {

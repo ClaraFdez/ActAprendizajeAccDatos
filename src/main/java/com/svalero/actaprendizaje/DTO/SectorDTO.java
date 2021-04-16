@@ -19,8 +19,10 @@ public class SectorDTO {
     private float extensionSec;
     private int numRutas;
     private boolean bus;
+
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaSec;
+
     private long parque_id;
 
 }

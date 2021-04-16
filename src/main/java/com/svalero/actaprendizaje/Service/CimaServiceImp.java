@@ -5,7 +5,6 @@ import com.svalero.actaprendizaje.Repository.CimaRepository;
 import com.svalero.actaprendizaje.Utils.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -57,6 +56,5 @@ public class CimaServiceImp implements CimaService{
                 .orElseThrow(()-> new NotFoundException());
         return cima;
     }
-
 
 }

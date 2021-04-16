@@ -10,7 +10,6 @@ import com.svalero.actaprendizaje.Repository.SectorRepository;
 import com.svalero.actaprendizaje.Utils.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -56,7 +55,7 @@ public class RutaServiceImp implements RutaService{
         listaRutas = rutaRepository.findAll();
         return listaRutas;
     }
-//la que da error YA NO DA AL COMPILAR
+
     @Override
     public List<Ruta> findAllIdSec(long sector_id) {
         List<Ruta> listaRutas;

@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -26,12 +25,9 @@ public class AutobusServiceImp implements AutobusService{
     private SectorRepository sectorRepository;
 
 
-//la que da error  YA NO
+
     @Override
     public List<Autobus> findAllBusSec(long sector_id) {
-        //Sector sector;
-       //sector = sectorRepository.findAllById(sector_id)
-        //        .orElseThrow(()-> new NotFoundException());
         List<Autobus> listaBus;
         listaBus = autobusRepository.findBusSec(sector_id);
         return listaBus;

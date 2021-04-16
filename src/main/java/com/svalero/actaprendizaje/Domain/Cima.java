@@ -5,10 +5,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -45,8 +45,4 @@ public class Cima {
     @JsonBackReference
     private List<Ruta> listaRutas;
 
-/*
-    @Schema(description = "Listado de rutas que hacen una cima en concreto", example = "Monte Perdido desde Goriz (normal), Monte Perdido desde Goriz (escaleras), Monte Perdido desde el Balcon de Pineta")
-    @ManyToMany(mappedBy = "cima")
-    private List<Ruta> listaRutas;*/
 }

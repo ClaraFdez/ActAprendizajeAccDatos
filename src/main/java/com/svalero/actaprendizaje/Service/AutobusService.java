@@ -6,11 +6,12 @@ import java.util.List;
 
 
 public interface AutobusService {
-    //la que da error  YA NO
+
     List<Autobus> findAllBusSec(long sector_id);
     Autobus addBus(AutobusDTO autobusDTO);
     Autobus modifyBus(long id, AutobusDTO autobusDTO);
     void deleteBus(long id);
     Autobus modifyBusPrecio(long id, float precio);
     Autobus findById(long id);
+
 }

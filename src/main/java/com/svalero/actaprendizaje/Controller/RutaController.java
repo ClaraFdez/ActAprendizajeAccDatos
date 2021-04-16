@@ -98,7 +98,6 @@ public class RutaController {
 
 
 
-
     @Operation(summary = "Modificación de una ruta completa")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Modificación realizada", content = @Content(schema = @Schema(implementation = Ruta.class))),
@@ -115,7 +114,6 @@ public class RutaController {
 
 
 
-
     @Operation(summary = "Eliminación de una ruta")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Eliminado con éxito", content = @Content(schema = @Schema(implementation = Ruta.class))),
@@ -128,7 +126,6 @@ public class RutaController {
         logger.info("Fin de deleteRuta");
         return new ResponseEntity<>(Respuesta.noErrorResponse(), HttpStatus.OK);
     }
-
 
 
 

@@ -5,12 +5,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.beans.ConstructorProperties;
 import java.time.LocalDate;
-import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -71,16 +69,8 @@ public class Ruta {
     @JoinColumn(name = "sector_id", nullable = false)
     private Sector sector;
 
-   /* @ManyToMany
-    @JoinTable(name = "ruta_cima",
-        joinColumns = {
-            @JoinColumn(name = "ruta_id")},
-        inverseJoinColumns = {
-            @JoinColumn(name = "cima_id")})
-    private List<Cima> listaCimas;*/
 
     @ManyToOne(optional = false)
-    //@ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "cima_id", nullable = false)
     private Cima cima;
 }

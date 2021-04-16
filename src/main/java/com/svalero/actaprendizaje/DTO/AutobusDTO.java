@@ -18,10 +18,11 @@ public class AutobusDTO {
     private String finBus;
     private boolean mascota;
     private int plazas;
+
     private float precio;
     @JsonFormat(pattern = "dd/MM/yyyy")
+
     private LocalDate fechaBus;
-    //@JoinColumn(name = "sector_id")
     private long sector_id;
 
 }

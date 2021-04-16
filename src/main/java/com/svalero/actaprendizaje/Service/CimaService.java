@@ -1,7 +1,6 @@
 package com.svalero.actaprendizaje.Service;
 
 import com.svalero.actaprendizaje.Domain.Cima;
-
 import java.util.List;
 
 public interface CimaService {
@@ -12,6 +11,5 @@ public interface CimaService {
     void deleteCima(long id);
     Cima modidfyCimaVivac(long id, int vivac);
     Cima findById(long id);
-
 
 }
