@@ -39,10 +39,4 @@ public class Cima {
     @Column
     private int vivacs;
 
-
-
-    @OneToMany(mappedBy = "cima", cascade = CascadeType.REMOVE)
-    @JsonBackReference
-    private List<Ruta> listaRutas;
-
 }

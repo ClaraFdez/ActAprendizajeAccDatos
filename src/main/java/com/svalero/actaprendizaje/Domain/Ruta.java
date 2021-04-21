@@ -1,6 +1,7 @@
 package com.svalero.actaprendizaje.Domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -71,6 +72,6 @@ public class Ruta {
 
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "cima_id", nullable = false)
+    @JoinColumn(name = "cima_id")
     private Cima cima;
 }

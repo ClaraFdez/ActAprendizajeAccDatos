@@ -1,7 +1,9 @@
 package com.svalero.actaprendizaje.Domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,11 +49,5 @@ public class Parque {
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Column
     private LocalDate fechaParque;
-
-
-
-
-    @OneToMany(mappedBy = "parque", cascade = CascadeType.REMOVE)
-    private List<Sector> Listasectores;
 
 }

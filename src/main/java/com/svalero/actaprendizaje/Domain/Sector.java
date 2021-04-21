@@ -51,7 +51,7 @@ public class Sector {
     @Schema(description = "Identificador del parque donde se encuentra un sector")
     @ManyToOne
     @JsonBackReference
-    @JoinColumn (name = "parque_id", nullable = false)
+    @JoinColumn (name = "parque_id")
     private Parque parque;
 
 

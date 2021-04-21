@@ -119,4 +119,5 @@ public class RutaServiceImp implements RutaService{
         listaRutas = rutaRepository.findBySalidaRutaAndCircularAndEpoca(salidaRuta, circular, epoca);
         return listaRutas;
     }
+
 }
